@@ -1,4 +1,4 @@
-package com.example.sandwich.Controller;
+package com.example.sandwich.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
