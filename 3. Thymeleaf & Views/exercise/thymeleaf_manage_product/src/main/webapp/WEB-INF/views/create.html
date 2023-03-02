@@ -11,13 +11,16 @@
 
 <form action="/products/create" method="post" th:object="${products}">
     <label for="name"></label>
-    <input required type="text" class="form-control" id="name" placeholder="Enter product name">
+    <input required type="text" class="form-control" id="name"
+           placeholder="Enter product name" th:field="*{name}">
 
     <label for="price"></label>
-    <input required type="text" class="form-control" id="price" placeholder="Enter product price">
+    <input required type="text" class="form-control" id="price"
+           placeholder="Enter product price" th:field="*{price}">
 
     <label for="dateOfManufacture"></label>
-    <input required type="text" class="form-control" id="dateOfManufacture" placeholder="Enter product Manufacture">
+    <input required type="text" class="form-control" id="dateOfManufacture"
+           placeholder="Enter product Manufacture" th:field="*{dateOfManufacture}">
 
     <div class="mt-3">
         <input type="submit" class="btn btn-primary" value="Add new Product">

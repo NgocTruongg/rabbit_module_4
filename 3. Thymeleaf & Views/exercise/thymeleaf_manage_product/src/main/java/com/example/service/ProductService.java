@@ -28,4 +28,19 @@ public class ProductService implements IProductService{
     public void createProduct(Product product) {
         productRepository.createProduct(product);
     }
+
+    @Override
+    public void updateProduct(Product product) {
+        productRepository.updateProduct(product);
+    }
+
+    @Override
+    public Product finById(int id) {
+        return productRepository.finById(id);
+    }
+
+    @Override
+    public void deleteProduct(int id) {
+        productRepository.deleteProduct(id);
+    }
 }
