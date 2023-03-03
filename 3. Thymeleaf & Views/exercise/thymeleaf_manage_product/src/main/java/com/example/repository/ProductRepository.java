@@ -5,11 +5,15 @@ import com.example.service.IProductService;
 import com.example.service.ProductService;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class ProductRepository implements IProductRepository {
+
 
     private static List<Product> productList;
 
@@ -21,18 +25,20 @@ public class ProductRepository implements IProductRepository {
             add(new Product(4, "Vacheron Constantin", "1ty6", "1775"));
         }};
     }
-
+    @PersistenceContext
+    EntityManager entityManager;
     @Override
     public List<Product> listProductByName(String name) {
         if (name == null) {
             return productList;
         }
-        List<Product> products = new ArrayList<>();
-        for (Product product : productList) {
-            if (product.getName().contains(name)) {
-                products.add(product);
-            }
-        }
+        List<Product> products = entityManager.createQuery("from Product where name like concat('%',:name,'%')")
+                .setParameter("name", name).getResultList();
+//        for (Product product : productList) {
+//            if (product.getName().contains(name)) {
+//                products.add(product);
+//            }
+//        }
         return products;
     }
 
@@ -46,21 +52,27 @@ public class ProductRepository implements IProductRepository {
         return null;
     }
 
+    @Transactional
     @Override
     public void createProduct(Product product) {
-        product.setId(productList.size() +1);
-        productList.add(product);
+        entityManager.persist(product);
     }
 
+    @Transactional
     @Override
     public void updateProduct(Product product) {
-        for (Product value: productList) {
-            if (product.getId() == value.getId()){
-                value.setName(product.getName());
-                value.setPrice(product.getPrice());
-                value.setDateOfManufacture(product.getDateOfManufacture());
-            }
-        }
+        Product product1 = entityManager.find(Product.class, product.getId());
+        product1.setName(product.getName());
+        product1.setPrice(product.getPrice());
+        product1.setDateOfManufacture(product1.getDateOfManufacture());
+        entityManager.merge(product1);
+//        for (Product value: productList) {
+//            if (product.getId() == value.getId()){
+//                value.setName(product.getName());
+//                value.setPrice(product.getPrice());
+//                value.setDateOfManufacture(product.getDateOfManufacture());
+//            }
+//        }
     }
 
     @Override

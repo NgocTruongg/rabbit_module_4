@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <a href="" class="btn btn-primary">Thêm mới</a>
+</div>
+<div class="table table-striped">
+    <h1>List Product</h1>
+    <div>
+        <form action="/blogs" method="get">
+            <label for="freeText"></label>
+            <input type="text" id="freeText" name="freeText" placeholder="Search....">
+            <input type="submit">
+        </form>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="blog, iterStat : ${blogs}">
+                <td th:text="${iterStat.count}"></td>
+                <td th:text="${blog.name}"></td>
+                <td th:text="${blog.status}"></td>
+                <td>
+                    <a th:href="@{/blogs/edit/{id}(id=${blogs.id})}" class="btn btn-primary">Edit</a>
+                </td>
+                <td>
+                    <a th:href="@{/blogs/edit/{id}(id=${blogs.id})}" class="btn btn-primary">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
