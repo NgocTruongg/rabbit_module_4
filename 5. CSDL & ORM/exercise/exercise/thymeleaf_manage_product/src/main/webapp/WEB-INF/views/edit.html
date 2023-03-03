@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<form action="/products/edit" method="post" th:object="${products}">
+    <input  required type="hidden" class="form-control" id="id" th:field="${products.id}">
+    <label  for="id"></label>
+
+    <label for="name"></label>
+    <input required type="text" class="form-control" id="name"
+            th:field="*{name}">
+
+    <label for="price"></label>
+    <input required type="text" class="form-control" id="price"
+           th:field="*{price}">
+
+    <label for="dateOfManufacture"></label>
+    <input required type="text" class="form-control" id="dateOfManufacture"
+           th:field="*{dateOfManufacture}">
+
+    <div class="mt-3">
+        <input type="submit" class="btn btn-primary" value="Save">
+        <button type="button" class="btn btn-secondary" onclick="window.location.href='/products'">Cancel</button>
+    </div>
+</form>
+</body>
+</html>
