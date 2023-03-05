@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <style>
+        th, td {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <a href="/blogs/create" class="btn btn-primary">Thêm mới Blog</a>
+    <a href="/category/create" class="btn btn-primary">Thêm mới thể loại Blog</a>
+</div>
+<div class="table">
+    <h1>List Product</h1>
+
+        <form action="/blogs" method="get">
+            <label for="freeText"></label>
+            <input type="text" id="freeText" name="freeText" placeholder="Search....">
+            <input type="submit">
+        </form>
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>STT</th>
+                <th>Tên tác giả</th>
+                <th>Tiêu đề</th>
+                <th>Nội dung</th>
+                <th>Phân Loại</th>
+                <th>Điều chỉnh</th>
+                <th>Xóa</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="blog, iterStat : ${blogList}">
+                <td th:text="${iterStat.count}"></td>
+                <td th:text="${blog.authorName}"></td>
+                <td th:text="${blog.title}"></td>
+                <td th:text="${blog.content}"></td>
+                <td th:text="${blog.category.name}"></td>
+                <td>
+                    <a th:href="@{/blogs/edit/{id}(id=${blog.id})}" class="btn btn-primary">Edit</a>
+                </td>
+                <td>
+                    <a th:href="@{/blogs/edit/{id}(id=${blog.id})}" class="btn btn-primary">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

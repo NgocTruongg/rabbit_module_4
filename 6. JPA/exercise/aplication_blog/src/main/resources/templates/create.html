@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/blogs/create" method="post" th:object="${blog}">
+    <label for="name">Điền tên Blog</label>
+    <input type="text" class="form-control" th:field="*{authorName}" id="name">
+    <label for="price">Điền tiêu đề</label>
+    <input type="text" class="form-control" th:field="*{title}" id="price">
+    <label for="description">Điền nội dung</label>
+    <input type="text" class="form-control" th:field="*{content}" id="description">
+    <label>Chọn thể loại</label>
+    <select class="form-control" th:field="*{category}">
+        <option th:each="category : ${categoryList}"  th:text="${category.name}" th:value="${category.id}"></option>
+    </select>
+    <div class="mt-3">
+        <input type="submit" class="btn btn-primary" value="Tạo mới">
+        <button type="button" class="btn btn-secondary" onclick="window.location.href='/blog'">Cancel</button>
+    </div>
+</form>
+</body>
+</html>

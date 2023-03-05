@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Detail</h2>
+
+<table class="table" th:object="${blog}">
+    <tr>
+        <div class="form-group">
+            <th>Tên tác giả:</th>
+            <td th:text="${blog.authorName}"></td>
+        </div>
+    </tr>
+
+    <tr>
+        <div class="form-group">
+            <th>Tiêu đề:</th>
+            <td th:text="${blog.title}"></td>
+        </div>
+    </tr>
+
+    <tr>
+        <div class="form-group">
+            <th>Nội dung: </th>
+            <td th:text="${blog.content}"></td>
+        </div>
+    </tr>
+
+    <tr>
+        <div class="form-group">
+            <th>Thể loại:</th>
+            <td th:text="${blog.category.name}"></td>
+        </div>
+    </tr>
+
+    <tr>
+        <div class="form-group">
+            <th></th>
+            <td><a href="/blogs" class="btn btn-secondary">Trang chủ</a> </td>
+        </div>
+    </tr>
+</table>
+</body>
+</html>
