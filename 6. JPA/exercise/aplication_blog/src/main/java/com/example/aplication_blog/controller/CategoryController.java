@@ -3,15 +3,15 @@ package com.example.aplication_blog.controller;
 import com.example.aplication_blog.model.Category;
 import com.example.aplication_blog.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/category")
@@ -20,8 +20,18 @@ public class CategoryController {
     private ICategoryService categoryService;
 
     @GetMapping("")
-    public String showCategoryList(Model model) {
-        model.addAttribute("categoryList", categoryService.findAll());
+    public String showCategoryList(@RequestParam(required = false) String name,Model model,
+                                  @PageableDefault(size = 2) Pageable pageable) {
+        if (name == null) {
+            name="";
+        }
+        Page<Category> categoryPage = categoryService.findAll(name, pageable);
+        model.addAttribute("categoryList", categoryPage);
+        List<Integer> pageNumberList = new ArrayList<>();
+        for (int i = 0; i<= categoryPage.getTotalPages();i++){
+            pageNumberList.add(i);
+        }
+        model.addAttribute("pageNumberList", pageNumberList);
         return "category-list";
     }
     @GetMapping("create")
