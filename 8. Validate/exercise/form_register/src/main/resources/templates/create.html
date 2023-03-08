@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/user" class="form-group" method="post" th:object="${userDTO}">
+    <label for="firstName">First Name</label>
+    <input type="text" name="firstName" class="form-control" th:field="${userDTO.firstName}" id="firstName">
+
+    <label for="lastName">Last Name</label>
+    <input type="text" name="lastName" class="form-control" th:field="${userDTO.lastName}" id="lastName">
+
+    <label for="age">Age</label>
+    <input type="text" name="age" class="form-control" th:field="${userDTO.age}" id="age">
+
+    <label for="email">Email</label>
+    <input type="text" name="email" class="form-control" th:field="${userDTO.email}" id="email">
+
+    <label for="numberPhone">Number Phone</label>
+    <input type="text" name="numberPhone" class="form-control" th:field="${userDTO.numberPhone}" id="numberPhone">
+
+    <div class="mt-4">
+        <input type="submit" class="btn btn-primary" value="Create">
+        <button type="button" class="btn btn-secondary" onclick="window.location.href='/user'">Cancel</button>
+    </div>
+</form>
+</body>
+</html>

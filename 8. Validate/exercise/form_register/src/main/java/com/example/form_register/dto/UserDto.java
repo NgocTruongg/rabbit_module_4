@@ -2,30 +2,36 @@ package com.example.form_register.dto;
 
 import javax.validation.constraints.*;
 
-public class UserDto {
+public class UserDTO {
 
     @NotEmpty
     private Integer id;
+    @NotBlank(message = "${firstName.notBlank}")
     @NotEmpty
     @Size(min = 5, max = 45)
     private String firstName;
 
+    @NotBlank(message = "${lastName.notBlank}")
     @NotEmpty
     @Size(min = 5, max = 45)
     private String lastName;
 
+    @NotBlank (message = "{phoneNumber.notBlank}")
     @Pattern(regexp = "(\\(\\d{3}\\)|\\d{3})[-\\. ]?\\d{3}[-\\. ]?\\d{4}")
     private String numberPhone;
 
+
+    @NotBlank (message = "{age.notBlank}")
     @NotEmpty
     @Min(18)
     private String age;
 
+    @NotBlank (message = "{email.notBlank}")
     @NotEmpty
     @Email
     private String email;
 
-    public UserDto() {
+    public UserDTO() {
     }
 
     public Integer getId() {
