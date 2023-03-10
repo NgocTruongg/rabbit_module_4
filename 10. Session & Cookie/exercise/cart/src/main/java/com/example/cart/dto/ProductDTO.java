@@ -5,7 +5,6 @@ import javax.validation.constraints.NotBlank;
 public class ProductDTO {
 
 
-    @NotBlank
     private Integer id;
 
     @NotBlank
