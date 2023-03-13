@@ -1,5 +1,6 @@
 package com.example.blog.model;
 
+import com.example.blog.dto.BlogDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
@@ -40,7 +41,7 @@ public class Category {
         return blogSet;
     }
 
-    public void setBlogSet(Set<Blog> blogSet) {
+    public void setBlogSet(Set<BlogDTO> blogSet) {
         this.blogSet = blogSet;
     }
 }

@@ -18,6 +18,7 @@ public class BlogDTO {
 
     public BlogDTO() {
     }
+    private CategoryDTO categoryDTO;
 
     public Integer getId() {
         return id;
@@ -49,5 +50,13 @@ public class BlogDTO {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public CategoryDTO getCategoryDTO() {
+        return categoryDTO;
+    }
+
+    public void setCategoryDTO(CategoryDTO categoryDTO) {
+        this.categoryDTO = categoryDTO;
     }
 }

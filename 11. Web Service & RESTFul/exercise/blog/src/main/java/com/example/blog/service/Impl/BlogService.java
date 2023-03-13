@@ -1,6 +1,7 @@
 package com.example.blog.service.Impl;
 
 import com.example.blog.dto.BlogDTO;
+import com.example.blog.dto.CategoryDTO;
 import com.example.blog.model.Blog;
 import com.example.blog.repository.IBlogRepository;
 import com.example.blog.service.IBlogService;
@@ -26,7 +27,9 @@ public class BlogService implements IBlogService {
         BlogDTO blogDTO;
         for (Blog blog : blogPage){
             blogDTO = new BlogDTO();
-            BeanUtils.copyProperties(blog,blogDTO);
+            blogDTO.setCategoryDTO(new CategoryDTO());
+            BeanUtils.copyProperties(blog.getCategory(), blogDTO.getCategoryDTO());
+            BeanUtils.copyProperties(blog, blogDTO);
             blogDTOList.add(blogDTO);
         }
         return new PageImpl<>(blogDTOList);
@@ -35,7 +38,10 @@ public class BlogService implements IBlogService {
     @Override
     public BlogDTO findById(int id) {
         BlogDTO blogDTO = new BlogDTO();
-        BeanUtils.copyProperties(blogRepository.findById(id).get(), blogDTO);
+        Blog blog = blogRepository.findById(id).get();
+        blogDTO.setCategoryDTO(new CategoryDTO());
+        BeanUtils.copyProperties(blog.getCategory(), blogDTO.getCategoryDTO());
+        BeanUtils.copyProperties(blog, blogDTO);
         return blogDTO;
     }
 }

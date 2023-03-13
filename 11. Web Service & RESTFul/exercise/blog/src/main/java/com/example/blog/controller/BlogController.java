@@ -22,6 +22,11 @@ public class BlogController {
     public Page<BlogDTO> getBlog(@PageableDefault(size = 3) Pageable pageable) {
         return blogService.findAll(pageable);
     }
-//    @GetMapping("/list/category")
-//    public
+
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("detail/{id}")
+    public BlogDTO getBlogDetail(@PathVariable int id){
+        return blogService.findById(id);
+    }
 }
