@@ -1,0 +1,241 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+ul li a{
+    border-radius: 20px;
+    box-shadow: white;
+  }
+nav div ul li a:hover{
+    background-color: rgb(57, 56, 51);
+  }
+  
+
+.ti-search:before {
+    font-weight: bold;
+    color:  rgb(115, 102, 93);
+    content: "\e610";
+    position: relative;
+    top: 13px;
+    right: 240px;
+}
+
+.ti-user:before {
+    content: "\e602";
+    color: white;
+    position: fixed;
+    float: left;
+    top: 25px;
+    right: 200px;
+}
+.box-shadow-login:hover{
+  background-color: rgb(243, 244, 241);
+}
+.group-3{
+  position: absolute;
+  width: 225px;
+  height: 116px;
+  right: 557px;
+  bottom: -25px;
+}
+.container{
+  width:100vw;
+  height:80vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.slider {
+  height: 750px;
+  width:100vw;
+  display: flex;
+  perspective: 1000px;
+  position: relative;
+  align-items:center;
+}
+
+.box1{
+  background:url("https://touchcinema.com/storage/slider-app/1920x1080-1652094775.jpg");
+  background-size:cover;
+  background-position:center center;
+}
+.box2 {
+  background: url("https://metiz.vn/media/slide_home/chi_chi_em_em.jpg");
+  background-size: cover;
+
+  background-position:center center;}
+.box3 {
+  background: url('https://fhntoday.com/wp-content/uploads/2023/01/ant-man-poster-e1674935972657.webp');
+  background-size: cover;
+background-position:center center;}
+.box4{
+background:url('https://news-thumb2.ymgstatic.com/YanThumbNews/2167221/202212/6af5e030-baa6-467e-bab0-ae31cb981045.jpg');
+  background-size:cover;
+  background-position:center center;}
+.box5{
+background:url('https://i.ytimg.com/vi/NbEchSaNzYs/maxresdefault.jpg');
+  background-size:cover;
+  background-position:center center;}
+
+.slider [class*="box"] {
+/*   float: left; */
+  overflow: hidden;
+  border-radius:20px;
+  transition: all 1s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+    position:absolute;
+}
+.slider [class*="box"]:nth-child(1) {
+  transform: scale(0.4) translate(-50%,-50%);
+  top: 10%;
+  z-index:1;
+}
+.slider [class*="box"]:nth-child(2){
+  height: 60vh;
+  transform: scale(0.4) translate(-50%,-50%);
+  top: 20%;
+  z-index:2;
+}
+.slider [class*="box"]:nth-child(3),
+.slider [class*="box"]:nth-child(5) {
+  width: 80vh;
+  height: 60vh;
+  transform: scale(0.6) translate(-50%,-50%);
+  top: 37%;
+  z-index:3;
+}
+.slider [class*="box"]:nth-child(4) {
+  width: 60vw;
+  height: 60vh;
+  border-color: #c92026;
+  color: #fff;
+  transform: scale(1) translate(-50%,-50%);
+  top: 50%;
+  z-index:4;
+}
+.slider [class*="box"]:nth-child(1){
+  left:-13%;}
+.slider [class*="box"]:nth-child(2){
+  left:-5%;}
+.slider [class*="box"]:nth-child(3){
+  left:10%;}
+.slider [class*="box"]:nth-child(4){
+  left:50%;}
+.slider [class*="box"]:nth-child(5){
+  left:71%;}
+.slider .firstSlide {
+    -webkit-animation:  firstChild 1s;
+    animation:  firstChild 1s;
+}
+/*Animation for buyers landing page slider*/
+@-webkit-keyframes firstChild {
+    0% {left:100%; transform: scale(0.2) translate(-50%,-50%);}
+    100% {left: -13%; transform: scale(0.2) translate(-50%,-50%);}
+}
+@keyframes firstChild {
+   0% {left:100%; transform: scale(0.2) translate(-50%,-50%);}
+    100% {left: -13%; transform: scale(0.2) translate(-50%,-50%);}
+}
+div div.col-3 div div div:hover{
+  opacity: 60%;
+  transform: scale(1.1);
+}
+div div.col-3 div div div:hover a{
+  display: block;
+}
+.img-black{
+  background-color: rgb(36, 34, 34);
+}
+.film-button{
+position: relative;
+top: 25px;
+color: white;
+background-color: rgb(51, 46, 46);
+width: 200px;
+height: 40px;
+border-radius: 20px;
+transition: .4s all;
+
+}
+.film-button:hover{
+  transform: scale(1.1);
+  background-color: rgb(207, 207, 193);
+}
+.film-button-1{
+  position: relative;
+  top: 25px;
+  color: black;
+  background-color: rgb(255, 254, 254);
+  width: 200px;
+  height: 40px;
+  border-radius: 20px;
+  transition: .4s all;
+  }
+  .film-button-1:hover{
+    transform: scale(1.1);
+    background-color: rgb(79, 71, 71);
+  }
+footer div ul li a:hover{
+  color: white;
+}
+a{
+  color: black;
+  text-decoration: none;
+}
+.seeMore::after:active{
+  text-decoration: underline;
+}
+div.event div div div:hover{
+  transform: none;
+  opacity: 40%;
+}
+div div.col-3{
+  position: relative;
+}
+.ticket{
+  position: absolute;
+  top: 120px;
+  left: 100px;
+  border: 1px solid;
+  color: rgb(9, 6, 6);
+  background-color: #ffffff;
+  width: 100px;
+  height: 50px;
+  line-height: 50px;
+  white-space: nowrap;
+  text-align: center;
+  display: none;
+}
+.ticket:hover{
+  background-color: rgb(223, 119, 49);
+  transform: scale(1.1);
+}
+.network{
+font-size: 30px;
+border-radius: 8px;
+}
+ul li a i:hover{
+  background-color: #d47036;
+}
+.detail{
+  position: absolute;
+  top: 190px;
+  left: 100px;
+  border: 1px solid;
+  color: rgb(9, 6, 6);
+  background-color: #ffffff;
+  width: 100px;
+  height: 50px;
+  line-height: 50px;
+  white-space: nowrap;
+  text-align: center;
+  display: none;
+}
+.detail:hover{
+  background-color: rgb(155, 212, 110);
+  transform: scale(1.1);
+}
+
+tr, td, table, th {
+  border: none !important;
+}

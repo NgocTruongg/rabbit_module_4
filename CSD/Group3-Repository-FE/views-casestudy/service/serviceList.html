@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Service List</title>
+    <link rel="stylesheet" href="\themify-icons\themify-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style.css">
+    <script src="createService.js"></script>
+    <script src="deleteService.js"></script>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #c4bea7;">
+        <div class="container-fluid">
+            <a class="navbar-brand ms-4" href="#">
+                <img src="https://cdn-icons-png.flaticon.com/512/3163/3163508.png" width="40px" height="40px"
+                     alt="">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item mx-3">
+                        <a class="nav-link active text-white" aria-current="page" href="#">Trang chủ</a>
+                    </li>
+                    <li class="nav-item mx-3 dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Phim
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Thể loại phim</a></li>
+                            <li><a class="dropdown-item" href="#">Diễn viên</a></li>
+                            <li><a class="dropdown-item" href="#">Đang chiếu</a></li>
+                            <li><a class="dropdown-item" href="#">Sắp chiếu</a></li>
+                            <!-- <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+                        </ul>
+                    </li>
+                    <li class="nav-item mx-3 dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Rạp chiếu phim
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Đà Nẵng</a></li>
+                            <li><a class="dropdown-item" href="#">TP Hồ Chí Minh</a></li>
+                            <li><a class="dropdown-item" href="#">Hà Nội</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Tìm kiếm tất cả</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item mx-3">
+                        <a class="nav-link text-white" href="#">Mua vé</a>
+                    </li>
+                    <li class="nav-item mx-3">
+                        <a class="nav-link text-white" href="#">Hỗ trợ</a>
+                    </li>
+                </ul>
+                <div>
+                    <a class="navbar-brand ms-4" href="#">
+                        <img class="group-3"
+                             src="https://i0.wp.com/www.group3.be/wp-content/uploads/2021/04/Logo_Standard-Color-PNG.png?fit=1068%2C601&ssl=1">
+                    </a>
+                </div>
+                <form class="d-flex" role="search" onsubmit="service();listMoving();upComingMovie(); return false;">
+                    <input id="idSearch" class="form-control me-3 rounded-pill" style="padding-left: 40px"
+                           type="search" placeholder="Tìm kiếm..." aria-label="Search"><i class="ti-search"></i>
+<!--                    <button class="btn btn-outline-success" type="submit" onsubmit="service()">Tìm Kiếm</button>-->
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item mx-2">
+                            <a style="width: 95px;" href="#" class="nav-link active login text-nav box-shadow-login"
+                               aria-current="page">Đăng nhập</a>
+                        </li>
+                        <span style="margin-right: 13px; font-size: 25px;">|</span>
+                        <li class="nav-item me-5">
+                            <a style="width: 74px;" class="nav-link active register box-shadow-login"
+                               aria-current="page" href="#">Đăng ký</a>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header>
+<!--SHOW-LIST-->
+<div class="row mx-0 " style="padding: 65px;">
+    <div>
+        <!-- Button trigger modal -->
+        <button style="float: right" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Thêm Sản Phẩm mới
+        </button>
+    </div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>STT</th>
+            <th>Tên Sản Phẩm</th>
+            <th>Ngày Sản Xuất</th>
+            <th>Ngày Hết Hạn</th>
+            <th>Giá</th>
+            <th>Loại Dịch Vụ</th>
+            <th>Ảnh</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody id="service"></tbody>
+    </table>
+</div>
+<div id="loadMoreService"></div>
+
+<!--CREAT SERVICE MODAL-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm Sản Phẩm mới</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="" id="addService">
+                <div class="modal-body" >
+                    <div class="form-group">
+                        <label for="name">Tên Sản phẩm</label>
+                        <input type="text"
+                               class="form-control" name="name" id="name" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="startDate">Ngày Sản Xuất</label>
+                        <input type="date"
+                               class="form-control" name="startDate" id="startDate" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">Ngày Hết Hạn</label>
+                        <input type="date"
+                               class="form-control" name="endDate" id="endDate" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Giá</label>
+                        <input type="text"
+                               class="form-control" name="price" id="price" placeholder="">
+                    </div>
+                    <div>
+                        <label>Loại Sản Phẩm</label>
+                        <div id="serviceType" class="form-group"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="img">Hình ảnh</label>
+                        <input type="text"
+                               class="form-control" name="img" id="img" placeholder="">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Thêm mới</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--DELETE MODAL-->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel1">Xóa</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="" id="deleteService">
+                <input type="hidden" id="deleteId" name="deleteId">
+                <div class="modal-body">Bạn có chắn chắn muốn xóa không <span id="deleteName" class="text-danger"></span> không?</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Xóa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+<script src="serviceList.js"></script>
+<script src="createService.js"></script>
+<script src="deleteService.js"></script>
+</body>
+</html>
