@@ -18,12 +18,24 @@
 </style>
 <body>
 <h1 class="text-center" style="color: red">Chi Tiết</h1>
-    <p>Mã cầu thủ: ${soccerPlayer.code}</p>
-    <p>Họ và tên: ${soccerPlayer.name}</p>
-    <p>Ngày sinh: ${soccerPlayer.dateOfBirthday}</p>
-    <p>Kinh nghiệm: ${soccerPlayer.exp}</p>
-    <p>Vị trí: ${soccerPlayer.location}</p>
-    <p>Ảnh đại diện <img src="${soccerPlayer.img}" ></p>
+<table class="table table-striped able-bordered table-hover">
+    <tr>
+    <th>Mã cầu thủ</th>
+    <th>Họ và tên</th>
+    <th>Ngày sinh</th>
+    <th>Kinh nghiệm</th>
+    <th>Vị trí</th>
+    <th>Ảnh đại diện</th>
+    </tr>
+    <tr>
+        <td>${soccerPlayer.code}</td>
+        <td>${soccerPlayer.name}</td>
+        <td>${soccerPlayer.dateOfBirthday}</td>
+        <td>${soccerPlayer.exp}</td>
+        <td>${soccerPlayer.location}</td>
+        <td><img src="${soccerPlayer.img}"</td>
+    </tr>
+</table>
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
