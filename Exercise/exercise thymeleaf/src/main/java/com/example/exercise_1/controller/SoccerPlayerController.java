@@ -44,15 +44,15 @@ public class SoccerPlayerController {
         return "redirect:/soccer-player";
     }
 
-    @GetMapping("/update/{id}")
-    public String showUpdateSoccerPlayer(@PathVariable int id, Model model) {
+    @GetMapping("/update")
+    public String showUpdateSoccerPlayer(@RequestParam int id, Model model) {
         model.addAttribute("soccerPlayer", iSoccerPlayerService.findById(id));
         return "/update";
     }
 
     @PostMapping("/update")
     public String updateSoccerPlayer(@ModelAttribute SoccerPlayer soccerPlayer) {
-        iSoccerPlayerService.save(soccerPlayer.getId(), soccerPlayer);
+        iSoccerPlayerService.update(soccerPlayer);
         return "redirect:/soccer-player";
     }
 }

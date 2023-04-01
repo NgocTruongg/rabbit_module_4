@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class SoccerPlayerService implements ISoccerPlayerService {
 
@@ -16,7 +17,7 @@ public class SoccerPlayerService implements ISoccerPlayerService {
 
     @Override
     public List<SoccerPlayer> findAll() {
-       return soccerPlayerRepository.findAll();
+        return soccerPlayerRepository.findAll();
     }
 
     @Override
@@ -37,10 +38,5 @@ public class SoccerPlayerService implements ISoccerPlayerService {
     @Override
     public void update(SoccerPlayer soccerPlayer) {
         soccerPlayerRepository.update(soccerPlayer);
-    }
-
-    @Override
-    public void save(int id, SoccerPlayer soccerPlayer) {
-        soccerPlayerRepository.save(soccerPlayer.getId(), soccerPlayer);
     }
 }

@@ -10,6 +10,5 @@ public interface ISoccerPlayerRepository {
     void deleteSoccer(int id);
     void create(SoccerPlayer soccerPlayer);
     void update(SoccerPlayer soccerPlayer);
-    void save(int id, SoccerPlayer soccerPlayer);
 
 }

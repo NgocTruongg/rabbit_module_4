@@ -13,5 +13,4 @@ public interface ISoccerPlayerService {
 
     void update(SoccerPlayer soccerPlayer);
 
-    void save(int id, SoccerPlayer soccerPlayer);
 }

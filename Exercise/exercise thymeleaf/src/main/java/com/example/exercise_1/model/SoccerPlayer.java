@@ -1,6 +1,13 @@
 package com.example.exercise_1.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "soccer_player")
 public class SoccerPlayer {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private int id;
     private String code;
