@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Thông tin chi tiết</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
     <style>
@@ -32,14 +32,14 @@
     <tr>
         <div class="form-group">
             <th>Ngày sinh:</th>
-            <td th:date="${soccerPlayer.dateOfBirthday}"></td>
+            <td th:text="${soccerPlayer.dateOfBirth}"></td>
         </div>
     </tr>
 
     <tr>
         <div class="form-group">
             <th>Kinh nghiệm:</th>
-            <td th:text="${soccerPlayer.exp}"></td>
+            <td th:text="${soccerPlayer.experience}"></td>
         </div>
     </tr>
 
@@ -53,7 +53,8 @@
     <tr>
         <div class="form-group">
             <th>Ảnh đại diện:</th>
-            <img th:src="${soccerPlayer.img}">
+            <td>
+                <img th:src="${soccerPlayer.img}">
             </td>
         </div>
     </tr>
