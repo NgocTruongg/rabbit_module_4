@@ -32,11 +32,11 @@
         </div>
         <div class="mb-3">
             <label class="form-label">Ngày sinh</label>
-            <input type="datetime-local" class="form-control" th:field="*{dateOfBirthday}" name="dateOfBirthday">
+            <input type="date" class="form-control" th:field="*{dateOfBirth}" name="dateOfBirthday">
         </div>
         <div class="mb-3">
             <label class="form-label">Kinh nghiệm</label>
-            <input type="text" class="form-control" th:field="*{exp}" name="exp">
+            <input type="text" class="form-control" th:field="*{experience}" name="exp">
         </div>
 
         <div class="mb-3">
@@ -48,6 +48,16 @@
             <label class="form-label">Ảnh</label>
             <input type="text" class="form-control" th:field="*{img}" name="img">
         </div>
+
+        <div class="mb-3">
+            <label>Đội tuyển</label>
+            <select th:field="*{footballTeam}">
+                <option th:each="football: ${footballTeamList}" th:text="${football.name}"
+                        th:value="${football.id}">
+                </option>
+            </select>
+        </div>
+
         <div class="mb-3">
             <button type="submit" class="btn btn-primary">Lưu</button>
             <input type="reset" class="btn btn-secondary" value="Hủy bỏ"/>

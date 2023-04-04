@@ -1,6 +1,7 @@
 package com.example.exercise_spring_boot.controller;
 
 import com.example.exercise_spring_boot.model.SoccerPlayer;
+import com.example.exercise_spring_boot.service.IFootballTeamService;
 import com.example.exercise_spring_boot.service.ISoccerPlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,34 +23,26 @@ public class SoccerPlayerController {
     @Autowired
     private ISoccerPlayerService iSoccerPlayerService;
 
+    @Autowired
+    private IFootballTeamService iFootballTeamService;
+
     @GetMapping("")
-    public String showList(Model model, @RequestParam(defaultValue = "", required = false) String name, Integer page,
+    public String showList(Model model, @RequestParam(defaultValue = "", required = false) String name,
+                           @RequestParam(defaultValue = "1") Integer page,
                            @PageableDefault(size = 3) Pageable pageable) {
-        if (name == null) {
-            name = "";
-        }
-        if (page == null) {
-            page = 0;
-        }
         Sort sort = null;
         if (name == name) {
-             sort = Sort.by("dateOfBirth").ascending();
+            sort = Sort.by("dateOfBirth").ascending();
         } else {
-             sort = Sort.by("name").ascending();
+            sort = Sort.by("name").ascending();
         }
-        Pageable sortPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),sort );
+        Pageable sortPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
         Page<SoccerPlayer> soccerPlayerPage = iSoccerPlayerService.findAll(name, sortPageable);
         model.addAttribute("soccerPlayerList", soccerPlayerPage);
         model.addAttribute("name", name);
         List<Integer> pageNumberList = new ArrayList<>();
         for (int i = 1; i <= soccerPlayerPage.getTotalPages(); i++) {
             pageNumberList.add(i);
-        }
-
-        for (int i = 1; i <= pageNumberList.size() ; i++) {
-            if (i == page){
-                model.addAttribute("page", i-1);
-            }
         }
         model.addAttribute("pageNumberList", pageNumberList);
         return "/list";
@@ -71,6 +64,7 @@ public class SoccerPlayerController {
     @GetMapping("/create")
     public String showCreateSoccerPlayer(Model model) {
         model.addAttribute("soccerPlayer", new SoccerPlayer());
+        model.addAttribute("footballTeamList", iFootballTeamService.findAll());
         return "/create";
     }
 
@@ -81,10 +75,9 @@ public class SoccerPlayerController {
     }
 
     @GetMapping("/update")
-    public String showUpdateSoccerPlayer(@RequestParam(required = false) int id, Model model, String name,
-                                         @PageableDefault Pageable pageable) {
-        model.addAttribute("soccerPlayerList", iSoccerPlayerService.findAll(name, pageable));
+    public String showUpdateSoccerPlayer(@RequestParam(required = false) int id, Model model) {
         model.addAttribute("soccerPlayer", iSoccerPlayerService.findById(id));
+        model.addAttribute("footballTeamList", iFootballTeamService.findAll());
         return "/update";
     }
 

@@ -49,6 +49,13 @@
             <input type="text" class="form-control" th:field="*{img}" name="img">
         </div>
         <div class="mb-3">
+            <label>Đội tuyển</label>
+            <select th:field="*{footballTeam}">
+                <option th:each="football: ${footballTeamList}" th:text="${football.name}"
+                        th:value="${football.id}"></option>
+            </select>
+        </div>
+        <div class="mb-5">
             <button type="submit" class="btn btn-primary">Thêm mới</button>
             <input type="reset" class="btn btn-secondary" value="Hủy bỏ"/>
         </div>
