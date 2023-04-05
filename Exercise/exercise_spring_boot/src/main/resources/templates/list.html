@@ -66,7 +66,7 @@
             <td>
                 <img th:src="*{soccerPlayer.img}">
             </td>
-            <td th:text="*{soccerPlayer.footballTeam.name}"></td>
+            <td th:text="*{soccerPlayer.footballTeam?.name}"></td>
 
             <td>
                 <a th:href="@{/soccer-player/detail/{id}(id=${soccerPlayer.id})}" class="btn btn-primary">

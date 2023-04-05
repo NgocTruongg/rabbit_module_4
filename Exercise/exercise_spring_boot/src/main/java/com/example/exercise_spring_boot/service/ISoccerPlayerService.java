@@ -1,5 +1,6 @@
 package com.example.exercise_spring_boot.service;
 
+import com.example.exercise_spring_boot.dto.SoccerPlayerDTO;
 import com.example.exercise_spring_boot.model.SoccerPlayer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,7 +12,7 @@ public interface ISoccerPlayerService {
     SoccerPlayer findById(int id);
     void deleteSoccer(int id);
 
-    void create(SoccerPlayer soccerPlayer);
+    void create(SoccerPlayerDTO soccerPlayerDTO);
 
     void update(SoccerPlayer soccerPlayer);
 

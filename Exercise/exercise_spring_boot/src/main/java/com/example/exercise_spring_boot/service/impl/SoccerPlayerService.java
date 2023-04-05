@@ -1,8 +1,10 @@
 package com.example.exercise_spring_boot.service.impl;
 
+import com.example.exercise_spring_boot.dto.SoccerPlayerDTO;
 import com.example.exercise_spring_boot.model.SoccerPlayer;
 import com.example.exercise_spring_boot.repository.ISoccerPlayerRepository;
 import com.example.exercise_spring_boot.service.ISoccerPlayerService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,7 +33,9 @@ public class SoccerPlayerService implements ISoccerPlayerService {
     }
 
     @Override
-    public void create(SoccerPlayer soccerPlayer) {
+    public void create(SoccerPlayerDTO soccerPlayerDTO) {
+        SoccerPlayer soccerPlayer = new SoccerPlayer();
+        BeanUtils.copyProperties(soccerPlayerDTO,soccerPlayer);
         iSoccerPlayerRepository.save(soccerPlayer);
     }
 

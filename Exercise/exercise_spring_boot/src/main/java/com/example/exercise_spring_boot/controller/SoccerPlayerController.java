@@ -1,5 +1,6 @@
 package com.example.exercise_spring_boot.controller;
 
+import com.example.exercise_spring_boot.dto.SoccerPlayerDTO;
 import com.example.exercise_spring_boot.model.SoccerPlayer;
 import com.example.exercise_spring_boot.service.IFootballTeamService;
 import com.example.exercise_spring_boot.service.ISoccerPlayerService;
@@ -11,7 +12,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,9 +73,17 @@ public class SoccerPlayerController {
     }
 
     @PostMapping("/create")
-    public String createSoccerPlayer(@ModelAttribute SoccerPlayer soccerPlayer) {
-        iSoccerPlayerService.create(soccerPlayer);
-        return "redirect:/soccer-player";
+    public String createSoccerPlayer(@Validated @ModelAttribute("soccerPlayer") SoccerPlayerDTO soccerPlayerDTO,
+                                     BindingResult bindingResult,
+                                     Model model) {
+        new SoccerPlayerDTO().validate(soccerPlayerDTO, bindingResult);
+        if (bindingResult.hasErrors()){
+            model.addAttribute("footballTeamList", iFootballTeamService.findAll());
+            return "/create";
+        } else {
+            iSoccerPlayerService.create(soccerPlayerDTO);
+            return "redirect:/soccer-player";
+        }
     }
 
     @GetMapping("/update")
