@@ -14,15 +14,19 @@ public class SoccerPlayerDTO implements Validator {
 
     @NotBlank(message = "mã cầu thủ không được để trống!")
     private String code;
+
     @NotBlank(message = "Tên không được để trống!")
     @Pattern(regexp = "^[A-Za-z ]{5,100}$", message = "Tên phải từ 5-100 kí tự và không chứa kí tự đặc biệt!")
     private String name;
 
+    @NotBlank(message = "Phải lựa chọn ngày sinh phù hợp !")
     private String dateOfBirth;
+
     @Pattern(regexp = "^[0-9]*[1-9][0-9]*$", message = "Kinh nghiệm phải là số nguyên dương!")
     private String experience;
+
     @Pattern(regexp = "(^(Trung vệ|Hậu vệ|Tiền vệ|Tiền đạo|Thủ môn)$)",
-            message = "Vị trí phải là 1 trong 4 vị trí(Trung vệ,  Hậu vệ,Tiền vệ,Tiền đạo,Thủ môn)!")
+            message = "Vị trí phải là 1 trong 4 vị trí sau (Trung vệ,  Hậu vệ,Tiền vệ,Tiền đạo hoặc là Thủ môn)!")
     private String location;
 
     @NotNull
@@ -123,7 +127,7 @@ public class SoccerPlayerDTO implements Validator {
             Period age = Period.between(LocalDate.parse(soccerPlayerDTO.getDateOfBirth()), LocalDate.now());
             int years = age.getYears();
             if (16 > years || years > 100) {
-                errors.rejectValue("dateOfBirth", "", "Tuổi phải từ 16 đến 100");
+                errors.rejectValue("dateOfBirth", "", "Tuổi phải từ 16 đến 100!");
             }
         }
     }

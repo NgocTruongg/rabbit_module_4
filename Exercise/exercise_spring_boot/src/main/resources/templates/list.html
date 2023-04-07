@@ -24,6 +24,9 @@
             background: white;
             color: black;
         }
+        td{
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -42,18 +45,20 @@
         <input id="name" name="name" type="text"/>
         <button type="submit">Tìm kiếm</button>
     </form>
-    <table class="table">
+    <table class="table table-striped able-bordered table-hover">
         <thead>
         <tr>
-            <th scope="col">Mã cầu thủ</th>
+            <th scope="col">Mã Cầu Thủ</th>
             <th scope="col">Họ Và Tên</th>
             <th scope="col">Ngày Sinh</th>
             <th scope="col">Kinh Nghiệm</th>
             <th scope="col">Vị Trí</th>
             <th scope="col">Ảnh Đại Diện</th>
-            <th scope="col">Đội tuyển</th>
+            <th scope="col">Đội Tuyển</th>
+            <th scope="col">Trạng Thái</th>
+            <th scope="col"></th>
             <th scope="col">Thông Tin Chi Tiết</th>
-            <th scope="col">Chỉnh sửa</th>
+            <th scope="col">Chỉnh Sửa</th>
             <th scope="col">Xóa</th>
         </thead>
         <tbody>
@@ -67,7 +72,14 @@
                 <img th:src="*{soccerPlayer.img}">
             </td>
             <td th:text="*{soccerPlayer.footballTeam?.name}"></td>
+            <td th:text="*{soccerPlayer.status}"></td>
 
+            <td>
+                <button type="button" th:attr="onclick=|infoRegister('${soccerPlayer.id}','${soccerPlayer.name}')|"
+                        class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#registerModal">
+                    Đăng kí
+                </button>
+            </td>
             <td>
                 <a th:href="@{/soccer-player/detail/{id}(id=${soccerPlayer.id})}" class="btn btn-primary">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -87,6 +99,8 @@
                     <i class="fas fa-trash-alt"></i>
                 </button>
             </td>
+
+
         </tr>
         </tbody>
     </table>
@@ -101,7 +115,7 @@
                 <form action="/soccer-player/delete">
                     <div class="modal-body">
                         <input hidden type="text" id="idDelete" name="idDelete">
-                        <span>You may want to delete </span><span style="color: red" class="fw-bolder"
+                        <span>Có chắc chắn xóa cầu thủ </span><span style="color: red" class="fw-bolder"
                                                                   id="nameDelete"></span> ?
                     </div>
                     <div class="modal-footer">
@@ -112,10 +126,39 @@
             </div>
         </div>
     </div>
+
+    <!--    modal đăng kí-->
+
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalRegister" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalRegister">Đăng kí</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/soccer-player/register">
+                    <div class="modal-body">
+                        <input hidden type="text" id="idRegister" name="idRegister">
+                        <span>Bạn có muốn thêm cầu thủ </span><span style="color: red" class="fw-bolder"
+                                                                    id="nameRegister"></span> vào đội hình ?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button type="submit" class="btn btn-danger">Đăng kí</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <script>
         function infoDelete(id, name) {
             document.getElementById("idDelete").value = id;
             document.getElementById("nameDelete").innerText = name;
+        }
+
+        function infoRegister(id, name) {
+            document.getElementById("idRegister").value = id;
+            document.getElementById("nameRegister").innerText = name;
         }
     </script>
 </div>
@@ -125,9 +168,9 @@
         <div class="d-flex" style="margin-top: 16px; margin-right: 10px">
             <input type="number" id="pageForm2" placeholder="Nhập số trang...."
                    th:attr="onchange=|changeData()|">
-            <input type="hidden"  id="pageForm1"  name="page" placeholder="Nhập số trang....">
+            <input type="hidden" id="pageForm1" name="page" placeholder="Nhập số trang....">
             <input type="submit" class="btn btn-outline-info"
-                   style="width: 136px" pattern="[1-9]+" value="Tìm kiếm" >
+                   style="width: 136px" pattern="[1-9]+" value="Tìm kiếm">
         </div>
     </form>
     <a class="page-item btn btn-dark page-item" th:if="${soccerPlayerList.hasPrevious()}"

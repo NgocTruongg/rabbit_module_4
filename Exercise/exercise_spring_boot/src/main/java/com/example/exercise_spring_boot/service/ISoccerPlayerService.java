@@ -17,4 +17,5 @@ public interface ISoccerPlayerService {
     void update(SoccerPlayer soccerPlayer);
 
 
+    void register(SoccerPlayer soccerPlayer);
 }

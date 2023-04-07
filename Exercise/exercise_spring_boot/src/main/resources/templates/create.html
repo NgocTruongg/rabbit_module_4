@@ -19,9 +19,6 @@
     </a>
     <h2 style="text-align: center">Thêm mới cầu thủ</h2>
     <form action="/soccer-player/create" method="post" th:object="${soccerPlayer}">
-<!--        <div class="mb-3">-->
-<!--            <input type="hidden" class="form-control" th:field="*{id}" name="id">-->
-<!--        </div>-->
         <div class="mb-3">
             <label class="form-label">Mã cầu thủ</label>
             <input type="text" class="form-control" th:field="*{code}" name="code">

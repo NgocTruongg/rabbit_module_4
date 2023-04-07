@@ -7,19 +7,29 @@ import javax.persistence.*;
 public class SoccerPlayer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer id;
+
     @Column(name = "code")
     private String code;
+
     @Column(name = "name")
     private String name;
-    @Column (name = "dateOfBirthday", columnDefinition = "date")
+
+    @Column(name = "dateOfBirthday", columnDefinition = "date")
     private String dateOfBirth;
-    @Column(name="experience")
+
+    @Column(name = "experience")
     private String experience;
+
     @Column(name = "location")
     private String location;
+
     @Column(name = "img")
     private String img;
+
+    @Column(name = "status")
+    private String status = "status";
 
     @ManyToOne
     @JoinColumn(name = "id_football")
@@ -82,6 +92,13 @@ public class SoccerPlayer {
 
     public void setImg(String img) {
         this.img = img;
+    }
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public FootballTeam getFootballTeam() {

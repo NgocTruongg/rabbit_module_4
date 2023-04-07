@@ -76,11 +76,16 @@ public class SoccerPlayerController {
     public String createSoccerPlayer(@Validated @ModelAttribute("soccerPlayer") SoccerPlayerDTO soccerPlayerDTO,
                                      BindingResult bindingResult,
                                      Model model) {
+
+        if (bindingResult.hasErrors()){
+            model.addAttribute("footballTeamList", iFootballTeamService.findAll());
+            return "/create";
+        }
         new SoccerPlayerDTO().validate(soccerPlayerDTO, bindingResult);
         if (bindingResult.hasErrors()){
             model.addAttribute("footballTeamList", iFootballTeamService.findAll());
             return "/create";
-        } else {
+        }else {
             iSoccerPlayerService.create(soccerPlayerDTO);
             return "redirect:/soccer-player";
         }
@@ -96,6 +101,13 @@ public class SoccerPlayerController {
     @PostMapping("/update")
     public String updateSoccerPlayer(@ModelAttribute SoccerPlayer soccerPlayer) {
         iSoccerPlayerService.update(soccerPlayer);
+        return "redirect:/soccer-player";
+    }
+
+    @GetMapping("/register")
+    public String registerSoccerPlayer(@RequestParam int idRegister) {
+        SoccerPlayer soccerPlayer = iSoccerPlayerService.findById(idRegister);
+        iSoccerPlayerService.register(soccerPlayer);
         return "redirect:/soccer-player";
     }
 }
