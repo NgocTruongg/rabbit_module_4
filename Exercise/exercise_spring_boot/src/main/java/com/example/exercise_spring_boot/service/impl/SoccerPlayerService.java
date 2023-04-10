@@ -66,4 +66,9 @@ public class SoccerPlayerService implements ISoccerPlayerService {
         }
     }
 
+    @Override
+    public List<SoccerPlayer> footballTeam() {
+        return iSoccerPlayerRepository.findAllByStatus();
+    }
+
 }

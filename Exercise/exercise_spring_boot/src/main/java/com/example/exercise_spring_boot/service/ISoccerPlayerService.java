@@ -18,4 +18,5 @@ public interface ISoccerPlayerService {
 
 
     void register(SoccerPlayer soccerPlayer);
+    List<SoccerPlayer> footballTeam();
 }

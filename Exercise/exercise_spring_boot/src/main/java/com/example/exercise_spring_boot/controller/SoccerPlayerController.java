@@ -17,15 +17,23 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/soccer-player")
+@SessionAttributes("soccerPlayerFavorites")
 public class SoccerPlayerController {
 
     @Autowired
     private ISoccerPlayerService iSoccerPlayerService;
+
+    @ModelAttribute("soccerPlayerFavorites")
+    public List<SoccerPlayer> soccerPlayers() {
+        return new ArrayList<>();
+    }
 
     @Autowired
     private IFootballTeamService iFootballTeamService;
@@ -53,8 +61,15 @@ public class SoccerPlayerController {
     }
 
     @GetMapping("/detail/{id}")
-    public String detailSoccerPlayer(@PathVariable("id") int id, Model model) {
+    public String detailSoccerPlayer(@PathVariable("id") int id, @CookieValue("countSoccerFavorites") Integer countSoccerFavorites,
+                                     HttpServletResponse servletResponse,
+                                     RedirectAttributes redirectAttributes,
+                                     Model model) {
         SoccerPlayer soccerPlayer = iSoccerPlayerService.findById(id);
+        Cookie cookie = new Cookie("countSoccerFavorites", ++countSoccerFavorites + "");
+        servletResponse.addCookie(cookie);
+        cookie.setMaxAge(1 * 24 * 60 * 60);
+        redirectAttributes.addAttribute("countSoccerFavorites", countSoccerFavorites);
         model.addAttribute("soccerPlayer", soccerPlayer);
         return "/detail";
     }
@@ -77,15 +92,15 @@ public class SoccerPlayerController {
                                      BindingResult bindingResult,
                                      Model model) {
 
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             model.addAttribute("footballTeamList", iFootballTeamService.findAll());
             return "/create";
         }
         new SoccerPlayerDTO().validate(soccerPlayerDTO, bindingResult);
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             model.addAttribute("footballTeamList", iFootballTeamService.findAll());
             return "/create";
-        }else {
+        } else {
             iSoccerPlayerService.create(soccerPlayerDTO);
             return "redirect:/soccer-player";
         }
@@ -109,5 +124,19 @@ public class SoccerPlayerController {
         SoccerPlayer soccerPlayer = iSoccerPlayerService.findById(idRegister);
         iSoccerPlayerService.register(soccerPlayer);
         return "redirect:/soccer-player";
+    }
+
+    @GetMapping("add-room/{id}")
+    public String addFavorites(@PathVariable("id") Integer id,
+                               @ModelAttribute("soccerPlayerFavorites") List<SoccerPlayer> soccerPlayers,
+                               RedirectAttributes redirectAttributes) {
+        SoccerPlayer soccerPlayer = iSoccerPlayerService.findById(id);
+        redirectAttributes.addFlashAttribute("msg", "Thêm vào danh sách yêu thích thành công!!!");
+        soccerPlayers.add(soccerPlayer);
+        return "redirect:/soccer-player";
+    }
+    @ExceptionHandler(Exception.class)
+    public String handel(){
+        return "/error";
     }
 }

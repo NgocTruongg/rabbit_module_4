@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách yêu thích</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <link rel="stylesheet" href="../../bootstrap520/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../datatables/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="../../themify-icons/themify-icons.css">
+    <style>
+        img {
+            width: 70px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+<h1 style="text-align: center">Danh sách cầu thủ yêu thích</h1>
+<div class="container d-flex justify-content-around">
+    <div class="row">
+        <div class="card col-md-4 mx-3" style="width: 18rem;"
+             th:each="soccerPlayer, iterStat : ${SoccerPlayerFavorites}">
+            <div class="card" style="width: 18rem;">
+                <img th:src="${soccerPlayer.img}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${soccerPlayer.name}"></h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Mã cầu thủ: <span th:text="${soccerPlayer.code}"></span></li>
+                    <li class="list-group-item">Ngày sinh: <span th:text="${soccerPlayer.dateOfBirth}"></span></li>
+                    <li class="list-group-item">Kinh nghiệm: <span th:text="${soccerPlayer.experience}"></span></li>
+                    <li class="list-group-item">Vị trí: <span th:text="${soccerPlayer.location}"></span></li>
+                    <li class="list-group-item">Đội tuyển: <span th:text="${soccerPlayer.footballTeam.name}"></span>
+                    </li>
+                    <li class="list-group-item">Trạng thái: <span style="color: red"
+                                                                  th:text="${soccerPlayer.status}"></span></li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="card-body" style="text-align: center">
+            <a href="/soccer-player" class="btn btn-secondary">Trang chủ</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

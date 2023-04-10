@@ -16,7 +16,7 @@
     <style>
         img {
             width: 70px;
-            height: 70px;
+            height: 200px;
         }
 
         .page-item {
@@ -24,7 +24,8 @@
             background: white;
             color: black;
         }
-        td{
+
+        td {
             text-align: center;
         }
     </style>
@@ -38,72 +39,121 @@
             <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"></path>
         </svg>
         <a href="/soccer-player/create" style="text-decoration: none;color: white;"><i class="bi bi-cart4"> Thêm mới cầu
-            thủ</i></a>
+            thủ</i>
+        </a>
     </button>
-    <form action="/soccer-player" method="get">
+
+    <button type="button" class="btn btn-success" style="margin-bottom: 2%">
+        <a href="/favorites" style="text-decoration: none;color: white;"><i> Danh sách cầu thủ yêu thích</i>
+        </a>
+    </button>
+    <form action="/soccer-player" method="get" class="mb-5">
         <label for="name"></label>
         <input id="name" name="name" type="text"/>
         <button type="submit">Tìm kiếm</button>
     </form>
-    <table class="table table-striped able-bordered table-hover">
-        <thead>
-        <tr>
-            <th scope="col">Mã Cầu Thủ</th>
-            <th scope="col">Họ Và Tên</th>
-            <th scope="col">Ngày Sinh</th>
-            <th scope="col">Kinh Nghiệm</th>
-            <th scope="col">Vị Trí</th>
-            <th scope="col">Ảnh Đại Diện</th>
-            <th scope="col">Đội Tuyển</th>
-            <th scope="col">Trạng Thái</th>
-            <th scope="col"></th>
-            <th scope="col">Thông Tin Chi Tiết</th>
-            <th scope="col">Chỉnh Sửa</th>
-            <th scope="col">Xóa</th>
-        </thead>
-        <tbody>
-        <tr th:each="soccerPlayer, iterStat : ${soccerPlayerList}">
-            <td th:text="*{soccerPlayer.code}"></td>
-            <td th:text="*{soccerPlayer.name}"></td>
-            <td th:text="*{soccerPlayer.dateOfBirth}"></td>
-            <td th:text="*{soccerPlayer.experience}"></td>
-            <td th:text="*{soccerPlayer.location}"></td>
-            <td>
-                <img th:src="*{soccerPlayer.img}">
-            </td>
-            <td th:text="*{soccerPlayer.footballTeam?.name}"></td>
-            <td th:text="*{soccerPlayer.status}"></td>
+    <div class="container d-flex justify-content-around">
+        <div class="row">
+            <div class="card col-md-4 mx-3" style="width: 18rem;"
+                 th:each="soccerPlayer, iterStat : ${soccerPlayerList}">
+                <img th:src="*{soccerPlayer.img}" class="card-img-top" alt="...">
+                <div class="card-body" style="text-align: left">
+                    <h3 class="card-title" style="text-align: center">
+                        <a class="text-decoration-none text-dark"
+                           th:href="@{/soccer-player/detail/{id}(id=${soccerPlayer.id})}"
+                           th:text="*{soccerPlayer.name}">
+                        </a>
+                    </h3>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Mã cầu thủ: <span th:text="${soccerPlayer.code}"></span></li>
+                        <li class="list-group-item">Ngày sinh: <span th:text="${soccerPlayer.dateOfBirth}"></span></li>
+                        <li class="list-group-item">Kinh nghiệm: <span th:text="${soccerPlayer.experience}"></span></li>
+                        <li class="list-group-item">Vị trí: <span th:text="${soccerPlayer.location}"></span></li>
+                        <li class="list-group-item">Đội tuyển: <span th:text="${soccerPlayer.footballTeam.name}"></span></li>
+                        <li class="list-group-item">Trạng thái: <span style="color: red" th:text="${soccerPlayer.status}"></span></li>
+                        <li class="list-group-item">
+                            <button type="button"
+                                    th:attr="onclick=|infoRegister('${soccerPlayer.id}','${soccerPlayer.name}')|"
+                                    class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#registerModal">
+                                Đăng kí
+                            </button>
+                        </li>
+                        <li class="list-group-item">
+                            <a th:href="@{/soccer-player/update/(id=${soccerPlayer.id})}" class="btn btn-primary"><i
+                                    class="fas fa-edit"></i></a>
+                        </li>
+                        <li class="list-group-item">
+                            <button type="button" th:attr="onclick=|infoDelete('${soccerPlayer.id}','${soccerPlayer.name}')|"
+                                    class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </li>
+                        <li class="list-group-item">
+                            <a th:href="@{/soccer-player/add-room/{id}(id=${soccerPlayer.id})}" class="btn btn-info">Yêu thích</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            <td>
-                <button type="button" th:attr="onclick=|infoRegister('${soccerPlayer.id}','${soccerPlayer.name}')|"
-                        class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#registerModal">
-                    Đăng kí
-                </button>
-            </td>
-            <td>
-                <a th:href="@{/soccer-player/detail/{id}(id=${soccerPlayer.id})}" class="btn btn-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                         class="bi bi-file-earmark-text" viewBox="0 0 16 16">
-                        <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"></path>
-                        <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"></path>
-                    </svg>
-                </a>
-            </td>
-            <td>
-                <a th:href="@{/soccer-player/update/(id=${soccerPlayer.id})}" class="btn btn-primary"><i
-                        class="fas fa-edit"></i></a>
-            </td>
-            <td>
-                <button type="button" th:attr="onclick=|infoDelete('${soccerPlayer.id}','${soccerPlayer.name}')|"
-                        class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <i class="fas fa-trash-alt"></i>
-                </button>
-            </td>
+    <!--    <table class="table table-striped able-bordered table-hover">-->
+    <!--        <thead>-->
+    <!--        <tr>-->
+    <!--            <th scope="col">Mã Cầu Thủ</th>-->
+    <!--            <th scope="col">Họ Và Tên</th>-->
+    <!--            <th scope="col">Ngày Sinh</th>-->
+    <!--            <th scope="col">Kinh Nghiệm</th>-->
+    <!--            <th scope="col">Vị Trí</th>-->
+    <!--            <th scope="col">Ảnh Đại Diện</th>-->
+    <!--            <th scope="col">Đội Tuyển</th>-->
+    <!--            <th scope="col">Trạng Thái</th>-->
+    <!--            <th scope="col"></th>-->
+    <!--            <th scope="col">Thông Tin Chi Tiết</th>-->
+    <!--            <th scope="col">Chỉnh Sửa</th>-->
+    <!--            <th scope="col">Xóa</th>-->
+    <!--        </thead>-->
+    <!--        <tbody>-->
+    <!--        <tr th:each="soccerPlayer, iterStat : ${soccerPlayerList}">-->
+    <!--            <td th:text="*{soccerPlayer.code}"></td>-->
+    <!--            <td th:text="*{soccerPlayer.name}"></td>-->
+    <!--            <td th:text="*{soccerPlayer.dateOfBirth}"></td>-->
+    <!--            <td th:text="*{soccerPlayer.experience}"></td>-->
+    <!--            <td th:text="*{soccerPlayer.location}"></td>-->
+    <!--            <td>-->
+    <!--                <img th:src="*{soccerPlayer.img}">-->
+    <!--            </td>-->
+    <!--            <td th:text="*{soccerPlayer.footballTeam?.name}"></td>-->
+    <!--            <td th:text="*{soccerPlayer.status}"></td>-->
 
-
-        </tr>
-        </tbody>
-    </table>
+    <!--            <td>-->
+    <!--                <button type="button" th:attr="onclick=|infoRegister('${soccerPlayer.id}','${soccerPlayer.name}')|"-->
+    <!--                        class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#registerModal">-->
+    <!--                    Đăng kí-->
+    <!--                </button>-->
+    <!--            </td>-->
+    <!--            <td>-->
+<!--                    <a th:href="@{/soccer-player/detail/{id}(id=${soccerPlayer.id})}" class="btn btn-primary">-->
+<!--                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"-->
+<!--                             class="bi bi-file-earmark-text" viewBox="0 0 16 16">-->
+<!--                            <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"></path>-->
+<!--                            <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"></path>-->
+<!--                        </svg>-->
+<!--                    </a>-->
+    <!--            </td>-->
+    <!--            <td>-->
+<!--                    <a th:href="@{/soccer-player/update/(id=${soccerPlayer.id})}" class="btn btn-primary"><i-->
+<!--                            class="fas fa-edit"></i></a>-->
+    <!--            </td>-->
+    <!--            <td>-->
+<!--                    <button type="button" th:attr="onclick=|infoDelete('${soccerPlayer.id}','${soccerPlayer.name}')|"-->
+<!--                            class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">-->
+<!--                        <i class="fas fa-trash-alt"></i>-->
+<!--                    </button>-->
+    <!--            </td>-->
+    <!--        </tr>-->
+    <!--        </tbody>-->
+    <!--    </table>-->
     <!--  Modal xóa  <%-->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -116,7 +166,7 @@
                     <div class="modal-body">
                         <input hidden type="text" id="idDelete" name="idDelete">
                         <span>Có chắc chắn xóa cầu thủ </span><span style="color: red" class="fw-bolder"
-                                                                  id="nameDelete"></span> ?
+                                                                    id="nameDelete"></span> ?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
@@ -163,7 +213,7 @@
     </script>
 </div>
 
-<div class="text-center">
+<div class="text-center container">
     <form action="/soccer-player" method="get">
         <div class="d-flex" style="margin-top: 16px; margin-right: 10px">
             <input type="number" id="pageForm2" placeholder="Nhập số trang...."

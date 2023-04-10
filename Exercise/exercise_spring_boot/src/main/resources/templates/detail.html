@@ -8,68 +8,91 @@
     <style>
         img {
             width: 100px;
-            height: 100px;
+            height: 250px;
         }
     </style>
 </head>
 <body>
 <h1 style="text-align: center">Chi tiết</h1>
-<table th:object="${soccerPlayer}" class="table">
-    <tr>
-        <div class="form-group">
-            <th>Mã cầu thủ:</th>
-            <td th:text="${soccerPlayer.code}"></td>
+<div class="container d-flex justify-content-around">
+    <div class="row">
+        <div class="card" style="width: 18rem;">
+            <img th:src="${soccerPlayer.img}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${soccerPlayer.name}"></h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Mã cầu thủ: <span th:text="${soccerPlayer.code}"></span></li>
+                <li class="list-group-item">Ngày sinh: <span th:text="${soccerPlayer.dateOfBirth}"></span></li>
+                <li class="list-group-item">Kinh nghiệm: <span th:text="${soccerPlayer.experience}"></span></li>
+                <li class="list-group-item">Vị trí: <span th:text="${soccerPlayer.location}"></span></li>
+                <li class="list-group-item">Đội tuyển: <span th:text="${soccerPlayer.footballTeam.name}"></span></li>
+                <li class="list-group-item">Trạng thái: <span style="color: red" th:text="${soccerPlayer.status}"></span></li>
+            </ul>
+            <div class="card-body" style="text-align: center">
+                <a href="/soccer-player" class="btn btn-secondary">Trang chủ</a>
+            </div>
         </div>
-    </tr>
+    </div>
+</div>
 
-    <tr>
-        <div class="form-group">
-            <th>Tên cầu thủ:</th>
-            <td th:text="${soccerPlayer.name}"></td>
-        </div>
-    </tr>
 
-    <tr>
-        <div class="form-group">
-            <th>Ngày sinh:</th>
-            <td th:text="${soccerPlayer.dateOfBirth}"></td>
-        </div>
-    </tr>
+<!--        <table th:object="${soccerPlayer}" class="table">-->
+<!--            <tr>-->
+<!--                <div class="form-group">-->
+<!--                    <th>Mã cầu thủ:</th>-->
+<!--                    <td th:text="${soccerPlayer.code}"></td>-->
+<!--                </div>-->
+<!--            </tr>-->
 
-    <tr>
-        <div class="form-group">
-            <th>Kinh nghiệm:</th>
-            <td th:text="${soccerPlayer.experience}"></td>
-        </div>
-    </tr>
+<!--            <tr>-->
+<!--                <div class="form-group">-->
+<!--                    <th>Tên cầu thủ:</th>-->
+<!--                    <td th:text="${soccerPlayer.name}"></td>-->
+<!--                </div>-->
+<!--            </tr>-->
 
-    <tr>
-        <div class="form-group">
-            <th>Vị trí:</th>
-            <td th:text="${soccerPlayer.location}"></td>
-        </div>
-    </tr>
+<!--            <tr>-->
+<!--                <div class="form-group">-->
+<!--                    <th>Ngày sinh:</th>-->
+<!--                    <td th:text="${soccerPlayer.dateOfBirth}"></td>-->
+<!--                </div>-->
+<!--            </tr>-->
 
-    <tr>
-        <div class="form-group">
-            <th>Đội tuyển :</th>
-            <td th:text="${soccerPlayer.footballTeam.name}"></td>
-        </div>
-    </tr>
+<!--            <tr>-->
+<!--                <div class="form-group">-->
+<!--                    <th>Kinh nghiệm:</th>-->
+<!--                    <td th:text="${soccerPlayer.experience}"></td>-->
+<!--                </div>-->
+<!--            </tr>-->
 
-    <tr>
-        <div class="form-group">
-            <th>Ảnh đại diện:</th>
-            <td>
-                <img th:src="${soccerPlayer.img}">
-            </td>
-        </div>
-    </tr>
-    <tr>
-        <th></th>
-        <td><a href="/soccer-player" class="btn btn-secondary">Trang chủ</a></td>
-    </tr>
-</table>
+<!--            <tr>-->
+<!--                <div class="form-group">-->
+<!--                    <th>Vị trí:</th>-->
+<!--                    <td th:text="${soccerPlayer.location}"></td>-->
+<!--                </div>-->
+<!--            </tr>-->
+
+<!--            <tr>-->
+<!--                <div class="form-group">-->
+<!--                    <th>Đội tuyển :</th>-->
+<!--                    <td th:text="${soccerPlayer.footballTeam.name}"></td>-->
+<!--                </div>-->
+<!--            </tr>-->
+
+<!--            <tr>-->
+<!--                <div class="form-group">-->
+<!--                    <th>Ảnh đại diện:</th>-->
+<!--                    <td>-->
+<!--                        <img th:src="${soccerPlayer.img}">-->
+<!--                    </td>-->
+<!--                </div>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <th></th>-->
+<!--                <td><a href="/soccer-player" class="btn btn-secondary">Trang chủ</a></td>-->
+<!--            </tr>-->
+<!--        </table>-->
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
