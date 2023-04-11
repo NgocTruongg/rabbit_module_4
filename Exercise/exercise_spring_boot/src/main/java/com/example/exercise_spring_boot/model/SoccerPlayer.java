@@ -32,7 +32,6 @@ public class SoccerPlayer {
     private String status = "status";
 
     @ManyToOne
-    @JoinColumn(name = "id_football")
     private FootballTeam footballTeam;
 
     public SoccerPlayer() {
