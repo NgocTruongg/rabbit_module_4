@@ -10,16 +10,19 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 
 @RestController
 @RequestMapping("/api/soccer-player")
+@CrossOrigin("*")
 public class SoccerPlayerRestFul {
     @Autowired
     private ISoccerPlayerService iSoccerPlayerService;
 
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
-    public Page<SoccerPlayer> getList(@RequestParam(name = "name", defaultValue = "", required = false)
+    public Page<SoccerPlayer> getList(@Valid @RequestParam(name = "name", defaultValue = "", required = false)
                                       @PageableDefault(size = 3) String name, Pageable pageable) {
         return iSoccerPlayerService.findAll(name, pageable);
     }

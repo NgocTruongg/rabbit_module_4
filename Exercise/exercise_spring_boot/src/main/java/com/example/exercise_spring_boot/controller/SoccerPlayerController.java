@@ -25,6 +25,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/soccer-player")
 @SessionAttributes("soccerPlayerFavorites")
+@CrossOrigin("*")
 public class SoccerPlayerController {
 
     @Autowired
